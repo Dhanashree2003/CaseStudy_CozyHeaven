@@ -1,0 +1,24 @@
+0000000000000000000000000000000000000000 320d865da73213bbc4a056f7261661bdaa7436cb Dhanashree2003 <dhanashree.r2021csbs@sece.ac.in> 1748163787 +0530	commit (initial): Initial commit
+320d865da73213bbc4a056f7261661bdaa7436cb 0000000000000000000000000000000000000000 Dhanashree2003 <dhanashree.r2021csbs@sece.ac.in> 1748163787 +0530	Branch: renamed refs/heads/master to refs/heads/main
+0000000000000000000000000000000000000000 320d865da73213bbc4a056f7261661bdaa7436cb Dhanashree2003 <dhanashree.r2021csbs@sece.ac.in> 1748163787 +0530	Branch: renamed refs/heads/master to refs/heads/main
+320d865da73213bbc4a056f7261661bdaa7436cb 0000000000000000000000000000000000000000 Dhanashree2003 <dhanashree.r2021csbs@sece.ac.in> 1748163951 +0530	Branch: renamed refs/heads/main to refs/heads/main
+320d865da73213bbc4a056f7261661bdaa7436cb 320d865da73213bbc4a056f7261661bdaa7436cb Dhanashree2003 <dhanashree.r2021csbs@sece.ac.in> 1748163951 +0530	Branch: renamed refs/heads/main to refs/heads/main
+320d865da73213bbc4a056f7261661bdaa7436cb 0000000000000000000000000000000000000000 Dhanashree2003 <dhanashree.r2021csbs@sece.ac.in> 1748164686 +0530	Branch: renamed refs/heads/main to refs/heads/main
+320d865da73213bbc4a056f7261661bdaa7436cb 320d865da73213bbc4a056f7261661bdaa7436cb Dhanashree2003 <dhanashree.r2021csbs@sece.ac.in> 1748164686 +0530	Branch: renamed refs/heads/main to refs/heads/main
+320d865da73213bbc4a056f7261661bdaa7436cb 4f87a1400b8aef6b8c045781d65d0f71041f6ed7 Dhanashree2003 <dhanashree.r2021csbs@sece.ac.in> 1748164811 +0530	pull --rebase origin main (start): checkout 4f87a1400b8aef6b8c045781d65d0f71041f6ed7
+4f87a1400b8aef6b8c045781d65d0f71041f6ed7 e14de961dd924cd7b7dde9411b3f5d3674d1db38 Dhanashree2003 <dhanashree.r2021csbs@sece.ac.in> 1748164811 +0530	pull --rebase origin main (pick): Initial commit
+e14de961dd924cd7b7dde9411b3f5d3674d1db38 e14de961dd924cd7b7dde9411b3f5d3674d1db38 Dhanashree2003 <dhanashree.r2021csbs@sece.ac.in> 1748164811 +0530	pull --rebase origin main (finish): returning to refs/heads/main
+e14de961dd924cd7b7dde9411b3f5d3674d1db38 b1356e5cbd0df73617caf62c13dee36f6dc58ceb Dhanashree2003 <dhanashree.r2021csbs@sece.ac.in> 1748203274 +0530	commit: UserService Class,Implementation
+b1356e5cbd0df73617caf62c13dee36f6dc58ceb 193cf38d794121753327d87bb746d90d37720dfa Dhanashree2003 <dhanashree.r2021csbs@sece.ac.in> 1748675265 +0530	commit: Guest dashboard end-to-end
+193cf38d794121753327d87bb746d90d37720dfa 41d4f556f63d063e183be6864bdaa2e0f701a556 Dhanashree2003 <dhanashree.r2021csbs@sece.ac.in> 1748686094 +0530	commit: Owner dashboard
+41d4f556f63d063e183be6864bdaa2e0f701a556 ea9f450e8d126e8f46d5825e73737ce3dca05c86 Dhanashree2003 <dhanashree.r2021csbs@sece.ac.in> 1748760784 +0530	commit: Admin dashboard updated
+ea9f450e8d126e8f46d5825e73737ce3dca05c86 6e32320df8e265166966bf4da3556612caa0dacc Dhanashree2003 <dhanashree.r2021csbs@sece.ac.in> 1748850957 +0530	commit: first commit
+6e32320df8e265166966bf4da3556612caa0dacc 0000000000000000000000000000000000000000 Dhanashree2003 <dhanashree.r2021csbs@sece.ac.in> 1748850957 +0530	Branch: renamed refs/heads/main to refs/heads/main
+6e32320df8e265166966bf4da3556612caa0dacc 6e32320df8e265166966bf4da3556612caa0dacc Dhanashree2003 <dhanashree.r2021csbs@sece.ac.in> 1748850957 +0530	Branch: renamed refs/heads/main to refs/heads/main
+6e32320df8e265166966bf4da3556612caa0dacc 299e886cead965200eda6ac6dd59215f5224cee7 Dhanashree2003 <dhanashree.r2021csbs@sece.ac.in> 1748850998 +0530	commit: first commit
+299e886cead965200eda6ac6dd59215f5224cee7 0000000000000000000000000000000000000000 Dhanashree2003 <dhanashree.r2021csbs@sece.ac.in> 1748850998 +0530	Branch: renamed refs/heads/main to refs/heads/main
+299e886cead965200eda6ac6dd59215f5224cee7 299e886cead965200eda6ac6dd59215f5224cee7 Dhanashree2003 <dhanashree.r2021csbs@sece.ac.in> 1748850998 +0530	Branch: renamed refs/heads/main to refs/heads/main
+299e886cead965200eda6ac6dd59215f5224cee7 373f94b2f435fb2a80d125a328528bfcd9f95858 Dhanashree2003 <dhanashree.r2021csbs@sece.ac.in> 1748851162 +0530	commit: jwt
+373f94b2f435fb2a80d125a328528bfcd9f95858 349d7d16b607d02aa042d561ce8de1fb3564c36d Dhanashree2003 <dhanashree.r2021csbs@sece.ac.in> 1750513580 +0530	commit: with integration to frontend
+349d7d16b607d02aa042d561ce8de1fb3564c36d bdf94757e368c6ab4ba020e874bca4951ed4cff4 Dhanashree2003 <dhanashree.r2021csbs@sece.ac.in> 1750514664 +0530	commit: backend code
+bdf94757e368c6ab4ba020e874bca4951ed4cff4 7497102cf2899d9db1c2b9b2c16ed899a6439fd1 Dhanashree2003 <dhanashree.r2021csbs@sece.ac.in> 1750515709 +0530	commit: backend
