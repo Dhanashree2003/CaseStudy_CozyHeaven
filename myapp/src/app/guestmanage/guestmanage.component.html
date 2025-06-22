@@ -1,0 +1,27 @@
+<div class="container mt-4">
+  <h2>Manage Guests</h2>
+
+  <div class="input-group mb-3">
+    <input [(ngModel)]="searchUserId" type="number" class="form-control" placeholder="Search Guest by ID">
+    <button class="btn btn-primary" (click)="getUserById()">Search</button>
+  </div>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.fullName }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+          <button class="btn btn-danger btn-sm" (click)="deleteUser(user.userID)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

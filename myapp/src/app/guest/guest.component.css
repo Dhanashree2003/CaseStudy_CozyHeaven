@@ -1,0 +1,201 @@
+.dashboard-bg {
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  padding-top: 70px;
+  padding-bottom: 50px;
+  backdrop-filter: blur(1.5px);
+}
+
+.container {
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+input {
+  border-radius: 0.25rem;
+}
+
+.hotel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.hotel-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hotel-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.hotel-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.hotel-details {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.hotel-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.hotel-location {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.hotel-amenities {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 1rem;
+}
+
+.hotel-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.hotel-price {
+  font-size: 1rem;
+  color: #333;
+}
+
+.book-btn {
+  padding: 0.4rem 1rem;
+}
+
+.hotel-reviews {
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.stars {
+  color: gold;
+}
+
+.review-sidebar,
+.bookings-sidebar {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 400px;
+  height: 100%;
+  background: #fefefe;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s ease-in-out;
+  z-index: 1050;
+  padding: 20px;
+  overflow-y: auto;
+  border-left: 1px solid #ccc;
+}
+
+.review-sidebar.open,
+.bookings-sidebar.open {
+  right: 0;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.review-item {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eee;
+}
+
+.review-item:hover {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.review-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.review-rating {
+  color: #f39c12;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.numeric-rating {
+  font-size: 14px;
+  color: #444;
+  margin-left: 8px;
+}
+
+.review-comment {
+  font-style: italic;
+  color: #333;
+}
+
+.no-reviews {
+  text-align: center;
+  color: #999;
+  font-style: italic;
+}
+
+.bg-sky {
+  background-color: #87CEEB !important; /* Sky Blue */
+}
+
+.bookings-sidebar {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  max-width: 600px; /* Makes it roughly 50% of desktop screens */
+  height: 100%;
+  background: #fff;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s ease-in-out;
+  z-index: 1050;
+  padding: 20px;
+  overflow-y: auto;
+  border-left: 1px solid #ccc;
+}
+
+.bookings-sidebar.open {
+  right: 0;
+}
+
+@media (max-width: 768px) {
+  .bookings-sidebar {
+    width: 100%;
+  }
+}

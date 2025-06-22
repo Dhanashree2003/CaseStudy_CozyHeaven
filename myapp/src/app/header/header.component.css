@@ -1,0 +1,102 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #005f73;
+  color: white;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo-title {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.actions button {
+  margin-left: 10px;
+  padding: 6px 12px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #0a9396;
+  border: none;
+  color: white;
+  border-radius: 4px;
+}
+
+.actions button:hover {
+  background-color: #94d2bd;
+  color: #000;
+}
+
+/* Profile slide panel */
+.profile-panel {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 300px;
+  height: 100%;
+  background: white;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  transition: right 0.3s ease;
+  z-index: 200;
+}
+
+.profile-panel.open {
+  right: 0;
+}
+
+.profile-panel h3 {
+  margin-top: 0;
+  color: #005f73;
+}
+
+.profile-panel form {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-panel label {
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.profile-panel input,
+.profile-panel select {
+  padding: 6px;
+  margin-top: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.profile-panel button {
+  margin-top: 15px;
+  padding: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+}
+
+.profile-panel button[type='submit'] {
+  background-color: #005f73;
+  color: white;
+}
+
+.profile-panel button[type='button'] {
+  background-color: #ccc;
+}
+

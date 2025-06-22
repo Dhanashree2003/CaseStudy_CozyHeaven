@@ -1,0 +1,56 @@
+.room-bg {
+  background-image: url('https://t3.ftcdn.net/jpg/11/99/13/86/240_F_1199138601_GJPWOpzl5IWT7qBa3EqkLjD763z15ArD.jpg'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  padding-top: 60px;
+  padding-bottom: 60px;
+  backdrop-filter: blur(1px); /* optional for a blur-glass effect */
+}
+
+
+.room-card {
+  background: #fef9f4; /* soft cream color */
+  border-radius: 10px;
+  border: 1px solid #f0e6d2;
+  overflow: hidden; /* to clip rounded corners on image */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.room-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.room-card img.card-img-top {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid #f0e6d2;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.btn-info {
+  background-color: #7ec8e3; /* pastel blue */
+  border: none;
+  color: #003049;
+}
+
+.btn-info:hover {
+  background-color: #63b3d6;
+  color: white;
+}
+
+.card-title {
+  font-weight: 600;
+  color: #3e3e3e;
+}
+.modal {
+  z-index: 1055 !important;
+}
+
+.modal-backdrop {
+  z-index: 1050 !important;
+}

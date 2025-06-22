@@ -1,0 +1,160 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+  <a class="navbar-brand text-white fw-bold" href="#">GuestDashboard</a>
+  <div class="ms-auto">
+    <button class="btn btn-outline-light" (click)="toggleBookingsSidebar()">My Bookings</button>
+  </div>
+</nav>
+<!-- <h3 class="text-primary">Welcome To CozyHeaven Hotel Booking</h3> -->
+<!-- Background Wrapper -->
+<div class="dashboard-bg" style="background-image: url('assets/background.png');">
+  <div class="container mt-4">
+  <div class="row my-3 align-items-center">
+  <div class="col-md-3">
+    <input [(ngModel)]="location" class="form-control" placeholder="Enter location (e.g., Ooty)">
+  </div>
+
+  <div class="col-md-2">
+
+  <input type="date" class="form-control" [(ngModel)]="checkInDate" [min]="today" (change)="updateCheckoutMinDate()" placeholder="Check-in Date">
+  </div>
+
+  <div class="col-md-2">
+    <input type="date" class="form-control" [(ngModel)]="checkOutDate" [min]="checkoutMinDate" placeholder="Check-out Date">
+  </div>
+
+  <div class="col-md-2">
+    <select [(ngModel)]="ac" class="form-control">
+      <option [ngValue]="true">AC</option>
+      <option [ngValue]="false">Non-AC</option>
+    </select>
+  </div>
+
+  <div class="col-md-2">
+    <button class="btn btn-success w-100" (click)="searchHotels()">Search Hotels</button>
+  </div>
+  </div>
+
+
+    <div *ngIf="errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
+
+    <!-- Hotel Grid -->
+    <div *ngIf="hotels.length === 0" class="alert alert-warning">No Hotels available.</div>
+    <div *ngIf="hotels.length > 0" class="hotel-grid">
+      <div *ngFor="let hotel of hotels" class="hotel-card">
+        <img [src]="hotel.imgUrl" alt="{{ hotel.hotelName }}" class="hotel-image" />
+        <div class="hotel-details">
+          <h4 class="hotel-name">{{ hotel.hotelName }}</h4>
+          <p class="hotel-location"><i class="bi bi-geo-alt-fill"></i> {{ hotel.location }}</p>
+          <p class="hotel-amenities">{{ hotel.amenities }}</p>
+
+          <div class="hotel-footer">
+            <div class="hotel-price">From Rs.2500/night</div>
+            <button class="btn btn-primary book-btn" (click)="goToRoomBooking(hotel.hotelID)">Book Now</button>
+          </div>
+
+          <div class="hotel-reviews">
+            <span class="stars">
+              <ng-container *ngFor="let star of getStars(hotel.hotelID)">★</ng-container>
+              <ng-container *ngFor="let empty of getEmptyStars(hotel.hotelID)">☆</ng-container>
+            </span>
+            <span class="review-count">({{ reviewCounts[hotel.hotelID] || 0 }} reviews)</span>
+            <button class="btn btn-link p-0 ms-2" (click)="openReviewSidebar(hotel.hotelID)">View Reviews</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Review Sidebar -->
+    <div class="review-sidebar" [class.open]="isSidebarOpen">
+      <div class="sidebar-header">
+        <h5>Hotel Reviews</h5>
+        <button class="btn-close" (click)="closeSidebar()"></button>
+      </div>
+      <div class="sidebar-content">
+        <div *ngIf="selectedReviews.length === 0" class="no-reviews">No reviews found.</div>
+        <div *ngFor="let review of selectedReviews" class="review-item">
+          <div class="review-meta">
+            <span class="review-user"><i class="bi bi-person-circle"></i> User {{ review.username }}</span>
+            <span class="review-date">{{ review.reviewDate | date: 'dd-MM-yyyy' }}</span>
+          </div>
+          <div class="review-rating">
+            <ng-container *ngFor="let s of [].constructor(review.rating)">★</ng-container>
+            <ng-container *ngFor="let s of [].constructor(5 - review.rating)">☆</ng-container>
+            <span class="numeric-rating">({{ review.rating }}/5)</span>
+          </div>
+          <div class="review-comment">“{{ review.comment }}”</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bookings Sidebar -->
+<div class="bookings-sidebar" [class.open]="bookingsSidebarOpen">
+  <div class="sidebar-header">
+    <h5>📅 My Bookings</h5>
+    <button class="btn-close" (click)="toggleBookingsSidebar()">×</button>
+  </div>
+
+  <div class="sidebar-content">
+    <div *ngIf="bookings.length === 0" class="no-bookings">No bookings found.</div>
+
+    <div *ngFor="let booking of bookings" class="booking-item card shadow-sm p-3 mb-4 bg-light border-0">
+  <div class="booking-meta mb-2">
+    <h6 class="mb-1 text-primary">📌 Booking ID: {{ booking.bookingID }}</h6>
+    <p class="text-muted mb-0">
+      🗓️ {{ booking.checkInDate | date: 'dd-MM-yyyy' }} to {{ booking.checkOutDate | date: 'dd-MM-yyyy' }}
+    </p>
+  </div>
+
+  <div class="booking-details mb-2">
+    <div class="d-flex flex-wrap justify-content-between">
+      <p>🏠 Room ID: <strong>{{ booking.roomID }}</strong></p>
+      <p>👨 Adults: <strong>{{ booking.noOfAdults }}</strong></p>
+      <p>🧒 Children: <strong>{{ booking.noOfChildren }}</strong></p>
+      <p>💰 Total Fare: <strong>₹{{ booking.totalFare }}</strong></p>
+    </div>
+    <p>Status: 
+      <span [ngClass]="{'text-success': booking.bookingStatus === 'Confirmed', 'text-danger': booking.bookingStatus === 'Cancelled'}">
+        <strong>{{ booking.bookingStatus }}</strong>
+      </span>
+    </p>
+  </div>
+
+  <!-- Cancel Button -->
+  <div *ngIf="booking.bookingStatus !== 'Cancelled'" class="mb-2">
+    <button class="btn btn-outline-danger btn-sm w-100" (click)="cancelBooking(booking.bookingID)">Cancel Booking</button>
+  </div>
+
+  <!-- Review Form (Styled) -->
+  <div class="review-form bg-white p-3 mt-3 border-start border-4 border-info rounded shadow-sm">
+    <h6 class="text-info fw-bold mb-2">📝 Submit Your Review</h6>
+    <form #reviewForm="ngForm" (ngSubmit)="submitReview(booking)" novalidate>
+      <div class="row g-2">
+        <div class="col-12 col-md-4">
+          <label class="form-label">Rating:</label>
+          <select name="rating" required [(ngModel)]="booking.reviewRating" #ratingRef="ngModel" class="form-select">
+            <option [value]="1">1 ★</option>
+            <option [value]="2">2 ★★</option>
+            <option [value]="3">3 ★★★</option>
+            <option [value]="4">4 ★★★★</option>
+            <option [value]="5">5 ★★★★★</option>
+          </select>
+          <div *ngIf="ratingRef.invalid && ratingRef.touched" class="text-danger small">Rating required</div>
+        </div>
+
+        <div class="col-12 col-md-8">
+          <label class="form-label">Comment:</label>
+          <input type="text" name="comment" required minlength="5" [(ngModel)]="booking.reviewComment" #commentRef="ngModel" class="form-control" placeholder="Share your thoughts...">
+          <div *ngIf="commentRef.invalid && commentRef.touched" class="text-danger small">Min 5 characters</div>
+        </div>
+
+        <div class="col-12 mt-2">
+          <button type="submit" class="btn btn-info btn-sm w-100" [disabled]="reviewForm.invalid">Submit Review</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+</div>
+

@@ -1,0 +1,62 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #005f73;
+  color: white;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo-title {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.actions button {
+  margin-left: 10px;
+  padding: 6px 12px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #0a9396;
+  border: none;
+  color: white;
+  border-radius: 4px;
+}
+
+.actions button:hover {
+  background-color: #94d2bd;
+  color: #000;
+}
+
+
+.app-wrapper {
+  min-height: 100vh;      /* Ensure the layout fills the full screen height */
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+}
+
+/* Simple, centered footer */
+.footer {
+  text-align: center;
+  padding: 12px 0;
+  font-size: 0.9rem;
+  color: #444;
+  border-top: 1px solid #ccc;
+}

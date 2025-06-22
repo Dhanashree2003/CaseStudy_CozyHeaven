@@ -1,0 +1,145 @@
+<!-- header part -->
+<nav class="navbar navbar-expand-lg navbar-light bg-info">
+  <a class="navbar-brand text-white" routerLink="/">Admin Dashboard</a>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item"><a class="nav-link text-white" routerLink="/guests">Manage Users</a></li>
+      <li class="nav-item"><a class="nav-link text-white" routerLink="/owners">Manage Owners</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<!-- body part -->
+<div class="container mt-4">
+  <h2>Owner Hotels</h2>
+
+  <div class="input-group mb-3">
+    <input [(ngModel)]="searchHotelId" class="form-control" placeholder="Search Hotel by ID">
+    <button class="btn btn-primary" (click)="getHotelById()">Search</button>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Hotel Name</th>
+        <th>Location</th>
+        <th>Amenities</th>
+        <th>Owner ID</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let hotel of hotels">
+        <td>{{ hotel?.hotelName }}</td>
+<td>{{ hotel?.location }}</td>
+<td>{{ hotel?.amenities }}</td>
+<td>{{ hotel?.ownerID }}</td>
+        <td>
+          <button class="btn btn-danger btn-sm" (click)="deleteHotel(hotel.hotelID)">Delete</button>
+          <button class="btn btn-warning btn-sm" (click)="openEditHotelForm(hotel)">Edit</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="btn btn-success" (click)="openAddHotelForm()">Add Hotel</button>
+</div>
+
+<!-- Add Hotel Modal -->
+<div class="modal fade" id="addHotelModal" tabindex="-1" role="dialog" aria-labelledby="addHotelModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form (ngSubmit)="submitAddHotel()" #hotelForm="ngForm">
+      <div class="modal-content">
+        <div class="modal-header bg-info text-white">
+          <h5 class="modal-title">Add New Hotel</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Hotel Name</label>
+            <input type="text" class="form-control" [(ngModel)]="newHotel.hotelName" name="hotelName" required>
+          </div>
+
+          <div class="form-group">
+            <label>Location</label>
+            <input type="text" class="form-control" [(ngModel)]="newHotel.location" name="location" required>
+          </div>
+
+          <div class="form-group">
+            <label>Amenities</label>
+            <input type="text" class="form-control" [(ngModel)]="newHotel.amenities" name="amenities" required>
+          </div>
+
+          <div class="form-group">
+            <label>Image URL</label>
+            <input type="text" class="form-control" [(ngModel)]="newHotel.imgUrl" name="imgUrl">
+          </div>
+
+          <div class="form-group">
+            <label>Owner ID</label>
+            <input type="number" class="form-control" [(ngModel)]="newHotel.ownerID" name="ownerID" required>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success" [disabled]="!hotelForm.form.valid">Add Hotel</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Edit Hotel Modal -->
+<div class="modal fade" id="editHotelModal" tabindex="-1" role="dialog" aria-labelledby="editHotelModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form (ngSubmit)="submitEditHotel()" #editHotelForm="ngForm">
+      <div class="modal-content">
+        <div class="modal-header bg-warning text-white">
+          <h5 class="modal-title">Edit Hotel</h5>
+          <button type="button" class="close text-white" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Hotel Name</label>
+            <input type="text" class="form-control" [(ngModel)]="editHotel.hotelName" name="editHotelName" required>
+          </div>
+
+          <div class="form-group">
+            <label>Location</label>
+            <input type="text" class="form-control" [(ngModel)]="editHotel.location" name="editLocation" required>
+          </div>
+
+          <div class="form-group">
+            <label>Amenities</label>
+            <input type="text" class="form-control" [(ngModel)]="editHotel.amenities" name="editAmenities" required>
+          </div>
+
+          <div class="form-group">
+            <label>Image URL</label>
+            <input type="text" class="form-control" [(ngModel)]="editHotel.imgUrl" name="editImgUrl">
+          </div>
+
+          <div class="form-group">
+            <label>Owner ID</label>
+            <input type="number" class="form-control" [(ngModel)]="editHotel.ownerID" name="editOwnerID" required>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-warning" [disabled]="!editHotelForm.form.valid">Update Hotel</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+

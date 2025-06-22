@@ -1,0 +1,167 @@
+<div class="container">
+  <h2 class="title">Owner Dashboard</h2>
+  <p *ngIf="hotels.length === 0" class="no-hotels">No hotels found.</p>
+
+  <div class="hotel-list" *ngIf="hotels.length > 0">
+    <div class="hotel-card" *ngFor="let hotel of hotels">
+      <div class="hotel-info">
+        <img [src]="hotel.imgUrl" alt="Hotel Image" class="hotel-image" />
+        <div class="hotel-details">
+          <h3>{{ hotel.hotelName }}</h3>
+          <p><strong>Location:</strong> {{ hotel.location }}</p>
+          <p><strong>Amenities:</strong> {{ hotel.amenities }}</p>
+
+          <div class="actions">
+            <button (click)="viewRooms(hotel.hotelID)">🛏️ View Rooms</button>
+            <button (click)="toggleReviews(hotel.hotelID)">📝 View Reviews</button>
+            <button (click)="toggleBookings()">📅 View Bookings</button>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Room Table Section -->
+      <div class="room-section" *ngIf="activeRoomHotelId === hotel.hotelID">
+        <h4>Rooms in {{ hotel.hotelName }}</h4>
+        <button class="add-room-btn" (click)="openAddRoomModal(hotel.hotelID)">➕ Add Room</button>
+          <!-- Room Grid Section -->
+          <div class="room-grid" *ngIf="rooms.length > 0; else noRooms">
+            <div class="room-card" *ngFor="let room of rooms">
+              <h5>{{ room.roomName }}</h5>
+              <p><strong>Size:</strong> {{ room.roomSize }}</p>
+              <p><strong>Bed:</strong> {{ room.bedType }}</p>
+              <p><strong>Occupancy:</strong> {{ room.maxOccupancy }}</p>
+              <p><strong>Fare:</strong> ₹{{ room.baseFare }}</p>
+              <p><strong>AC:</strong> {{ room.ac ? 'Yes' : 'No' }}</p>
+              <p><strong>Status:</strong> {{ room.roomStatus }}</p>
+              <div class="room-actions">
+                <button class="delete-btn" (click)="deleteRoom(room.roomID)">🗑️</button>
+                <button class="edit-btn" (click)="openEditRoomModal(room)">✏️</button>
+              </div>
+            </div>
+          </div>
+        <ng-template #noRooms><p>No rooms found.</p></ng-template>
+      </div>
+    </div>
+  </div>
+
+  <!-- Review Sidebar -->
+  <div class="review-sidebar" *ngIf="showReviewSidebar">
+    <h4>Guest Reviews</h4>
+    <div *ngIf="reviews.length > 0; else noReviews">
+      <div class="review" *ngFor="let review of reviews">
+        <p>Rating: {{ review.rating }}</p>
+        <p>"{{ review.comment }}"</p>
+        <p class="review-date">{{ review.reviewDate }}</p>
+        <hr />
+      </div>
+    </div>
+    <ng-template #noReviews><p>No reviews available.</p></ng-template>
+    <button class="close-btn" (click)="toggleReviews()">Close</button>
+  </div>
+</div>
+
+<!-- Add Room Modal -->
+<div class="modal" *ngIf="showAddRoomModal">
+  <div class="modal-content">
+    <h3>Add New Room</h3>
+    <form (ngSubmit)="addRoom()" #roomForm="ngForm">
+      <input type="text" [(ngModel)]="newRoom.roomName" name="roomName" placeholder="Room Name" required />
+      <input type="text" [(ngModel)]="newRoom.roomSize" name="size" placeholder="Room Size" required />
+      <input type="text" [(ngModel)]="newRoom.bedType" name="bedType" placeholder="Bed Type" required />
+      <input type="number" [(ngModel)]="newRoom.maxOccupancy" name="occupancy" placeholder="Max Occupancy" required />
+      <input type="number" [(ngModel)]="newRoom.baseFare" name="fare" placeholder="Base Fare" required />
+      
+      <select [(ngModel)]="newRoom.ac" name="ac" required>
+        <option [ngValue]="true">AC</option>
+        <option [ngValue]="false">Non-AC</option>
+      </select>
+
+      <select [(ngModel)]="newRoom.roomStatus" name="status" required>
+        <option value="Available">Available</option>
+        <option value="Occupied">Booked</option>
+      </select>
+
+      <div class="modal-actions">
+        <button type="submit">Add</button>
+        <button type="button" class="cancel-btn" (click)="closeAddRoomModal()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Update Room Modal -->
+<div class="modal" *ngIf="showEditRoomModal">
+  <div class="modal-content">
+    <h3>Update Room</h3>
+    <form (ngSubmit)="updateRoom()" #editRoomForm="ngForm">
+      <input type="text" [(ngModel)]="editRoom.roomName" name="roomName" placeholder="Room Name" required />
+      <input type="text" [(ngModel)]="editRoom.roomSize" name="size" placeholder="Room Size" required />
+      <input type="text" [(ngModel)]="editRoom.bedType" name="bedType" placeholder="Bed Type" required />
+      <input type="number" [(ngModel)]="editRoom.maxOccupancy" name="occupancy" placeholder="Max Occupancy" required />
+      <input type="number" [(ngModel)]="editRoom.baseFare" name="fare" placeholder="Base Fare" required />
+
+      <select [(ngModel)]="editRoom.ac" name="ac" required>
+        <option [ngValue]="true">AC</option>
+        <option [ngValue]="false">Non-AC</option>
+      </select>
+
+      <select [(ngModel)]="editRoom.roomStatus" name="status" required>
+        <option value="Available">Available</option>
+        <option value="Occupied">Booked</option>
+      </select>
+
+      <div class="modal-actions">
+        <button type="submit">Update</button>
+        <button type="button" class="cancel-btn" (click)="closeEditRoomModal()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<!-- Booking Sidebar -->
+<div class="booking-sidebar" *ngIf="showBookingsSidebar">
+  <h4>Bookings</h4>
+  <button class="close-button" aria-label="Close alert" type="button" (click)="toggleBookings()">×</button>
+  <div *ngIf="bookings.length > 0; else noBookings">
+    <table class="booking-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User ID</th>
+          <th>Room ID</th>
+          <th>Check-in</th>
+          <th>Check-out</th>
+          <th>Adults</th>
+          <th>Children</th>
+          <th>Total Fare</th>
+          <th>Status</th>
+          <th>Update Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let booking of bookings">
+          <td>{{ booking.bookingID }}</td>
+          <td>{{ booking.userID }}</td>
+          <td>{{ booking.roomID }}</td>
+          <td>{{ booking.checkInDate }}</td>
+          <td>{{ booking.checkOutDate }}</td>
+          <td>{{ booking.noOfAdults }}</td>
+          <td>{{ booking.noOfChildren }}</td>
+          <td>{{ booking.totalFare }}</td>
+          <td>{{ booking.bookingStatus }}</td>
+          <td>
+            <select [(ngModel)]="booking.bookingStatus" (change)="updateBookingStatus(booking, booking.bookingStatus)">
+              <option value="Confirmed">Confirmed</option>
+              <option value="Cancelled">Rejected</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #noBookings><p>No bookings available.</p></ng-template>
+  
+</div>
+

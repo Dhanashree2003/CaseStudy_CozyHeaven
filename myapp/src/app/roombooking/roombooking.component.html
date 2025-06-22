@@ -1,0 +1,166 @@
+
+<div class="room-bg">
+<div class="container py-4">
+<div class="container mt-4">
+
+<!-- Room Filter Section -->
+<div class="row my-3 align-items-center">
+  <div class="col-md-2">
+    <input type="number" [(ngModel)]="minOccupancy" class="form-control" placeholder="Min Occupancy">
+  </div>
+  <div class="col-md-2">
+    <input type="number" [(ngModel)]="maxPrice" class="form-control" placeholder="Max Price">
+  </div>
+  <div class="col-md-3">
+    <input [(ngModel)]="roomSize" class="form-control" placeholder="Room Size (e.g., Deluxe)">
+  </div>
+  <div class="col-md-2">
+    <button class="btn btn-primary w-100" (click)="searchRooms()">Search Rooms</button>
+  </div>
+</div>
+
+<p *ngIf="errorMsg" class="text-danger">{{ errorMsg }}</p>
+
+<h2 class="text-primary mb-4">Available Rooms</h2>
+
+<div *ngIf="rooms.length === 0" class="alert alert-warning">No rooms available.</div>
+
+<!-- Room Grid -->
+<div class="row g-4">
+  <div *ngFor="let room of rooms" class="col-md-6 col-lg-4">
+    <div class="card room-card shadow-sm">
+      <img 
+        src="https://t4.ftcdn.net/jpg/08/69/61/77/240_F_869617705_96sYHXy98qFBONsDE1ktkxjlhscwSsWb.jpg" 
+        alt="Room Image" 
+        class="card-img-top small-room-img"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ room.roomName }}</h5>
+        <p class="card-text mb-1">Room Size: {{ room.roomSize }}</p>
+        <p class="card-text mb-1">Bed Type: {{ room.bedType }}</p>
+        <p class="card-text mb-1">Max Occupancy: {{ room.maxOccupancy }}</p>
+        <p class="card-text mb-2">AC: {{ room.ac ? 'Yes' : 'No' }}</p>
+        <p class="card-text fw-bold">Fare: ₹{{ room.baseFare }}</p>
+        <button class="btn btn-info w-100" (click)="openBookingPopup(room.roomID)">Book Now</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+
+  <!-- Booking Modal -->
+  <div class="modal fade" id="bookingModal" tabindex="-1" role="dialog" aria-labelledby="bookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content modal-theme">
+        <div class="modal-header">
+          <h5 class="modal-title" id="bookingModalLabel">Book Room</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form *ngIf="selectedRoomId !== null"
+      #bookingForm="ngForm"
+      (ngSubmit)="submitBooking(selectedRoomId!)"
+      novalidate>
+  <div class="modal-body">
+
+    <!-- Step 1: Booking Info -->
+    <div *ngIf="currentStep === 1 && !bookingSuccess">
+      <div class="form-group">
+        <div class="form-group col-md-6">
+          <label>Check-in</label>
+          <input type="date" class="form-control" name="checkInDate"
+                 [(ngModel)]="bookingForms[selectedRoomId].checkInDate"
+                 required [min]="today" (change)="updateTotalFare(selectedRoomId!)"
+                 #checkInRef="ngModel">
+          <small class="text-danger" *ngIf="checkInRef.invalid && checkInRef.touched">Required</small>
+        </div>
+
+        <div class="form-group col-md-6">
+          <label>Check-out</label>
+          <input type="date" class="form-control" name="checkOutDate"
+                 [(ngModel)]="bookingForms[selectedRoomId].checkOutDate"
+                 required [min]="bookingForms[selectedRoomId].checkInDate" (change)="updateTotalFare(selectedRoomId!)"
+                 #checkOutRef="ngModel">
+          <small class="text-danger" *ngIf="checkOutRef.invalid && checkOutRef.touched">Required</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="form-group col-md-6">
+          <label>Adults</label>
+          <input type="number" class="form-control" name="noOfAdults"
+                 [(ngModel)]="bookingForms[selectedRoomId].noOfAdults"
+                 required min="1" #adultsRef="ngModel">
+          <small class="text-danger" *ngIf="adultsRef.invalid && adultsRef.touched">Min 1 adult</small>
+        </div>
+
+        <div class="form-group col-md-6">
+          <label>Children</label>
+          <input type="number" class="form-control" name="noOfChildren"
+                 [(ngModel)]="bookingForms[selectedRoomId].noOfChildren"
+                 min="0">
+        </div>
+      </div>
+
+      <div class="text-right mt-2">
+        <strong>Total Fare: ₹{{ bookingForms[selectedRoomId]?.totalFare }}</strong>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary"
+                [disabled]="bookingForm.invalid"
+                (click)="nextStep()">Proceed to Payment</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Payment Info -->
+    <div *ngIf="currentStep === 2 && !bookingSuccess">
+      <div class="form-group">
+        <div class="form-group">
+          <label>Card Number</label>
+          <input type="text" class="form-control"
+                 [(ngModel)]="paymentDetails.cardNumber" name="cardNumber" required>
+        </div>
+
+        <div class="form-group">
+          <label>Bank Name</label>
+          <input type="text" class="form-control"
+                 [(ngModel)]="paymentDetails.bankName" name="bankName" required>
+        </div>
+
+        <div class="form-group">
+          <label>Mobile Number</label>
+          <input type="text" class="form-control"
+                 [(ngModel)]="paymentDetails.mobileNumber" name="mobileNumber" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>OTP</label>
+        <input type="text" class="form-control"
+               [(ngModel)]="otp" name="otp" placeholder="Enter 1111 to confirm" required>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="previousStep()">Back</button>
+        <button type="submit" class="btn btn-success">Confirm Booking & Pay</button>
+      </div>
+    </div>
+
+  </div>
+</form>
+
+<!-- Step 3: Success -->
+<div *ngIf="bookingSuccess" class="text-center p-4">
+  <h4 class="text-success">Booking & Payment Successful!</h4>
+  <p>Your room has been booked and payment received.</p>
+  <button type="button" class="btn btn-outline-primary" (click)="closeModal()">Close</button>
+</div>
+</div>
+</div>
+</div>
+

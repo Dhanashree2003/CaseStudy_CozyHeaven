@@ -1,0 +1,166 @@
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="logo-title">
+    <img src="assets/logo.png" alt="Logo" class="logo" />
+    <span class="title">CozyHeaven Hotel Booking</span>
+  </div>
+  <div class="actions">
+    <button (click)="showLogin = true">Login</button>
+    <button (click)="showLogin = false">Register</button>
+  </div>
+</nav>
+
+<br>
+<br>
+<!-- Main Content -->
+<main class="main-content">
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow-lg">
+          <div class="card-body bg-light">
+
+<!-- Login Form -->
+<form *ngIf="showLogin" #loginForm="ngForm" (ngSubmit)="loginUser(loginForm)" novalidate>
+  <h5 class="mb-3 text-info">Login</h5>
+
+  <div class="mb-3">
+    <label for="email">Email Id</label>
+    <input
+      type="email"
+      id="email"
+      class="form-control"
+      name="email"
+      ngModel
+      required
+      email
+      #emailRef="ngModel"
+    />
+    <div *ngIf="emailRef.invalid && emailRef.touched" class="text-danger small">
+      <div *ngIf="emailRef.errors?.['required']">Email is required.</div>
+      <div *ngIf="emailRef.errors?.['email']">Enter a valid email.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="password">Password</label>
+    <input
+      type="password"
+      id="password"
+      class="form-control"
+      name="password"
+      ngModel
+      required
+      #passRef="ngModel"
+    />
+    <div *ngIf="passRef.invalid && passRef.touched" class="text-danger small">
+      <div *ngIf="passRef.errors?.['required']">Password is required.</div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-warning w-100" [disabled]="loginForm.invalid">Login</button>
+</form>
+
+
+            <!-- Register Form -->
+            <form *ngIf="!showLogin" #registerForm="ngForm" (ngSubmit)="registerUser(registerForm)" novalidate>
+              <h5 class="mb-3 text-primary">Register</h5>
+
+              <div class="mb-2">
+                <label>Full Name</label>
+                <input type="text" class="form-control" name="fullName" ngModel required #nameRef="ngModel" />
+                <div *ngIf="nameRef.invalid && nameRef.touched" class="text-danger small">Full name is required.</div>
+              </div>
+
+              <div class="mb-2">
+                <label>Email</label>
+                <input type="email" class="form-control" name="email" ngModel required email #regEmail="ngModel" />
+                <div *ngIf="regEmail.invalid && regEmail.touched" class="text-danger small">
+                  <div *ngIf="regEmail.errors?.['required']">Email is required.</div>
+                  <div *ngIf="regEmail.errors?.['email']">Invalid email format.</div>
+                </div>
+              </div>
+
+              <div class="mb-2">
+                <label>Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  ngModel
+                  required
+                  minlength="6"
+                  #regPass="ngModel"
+                />
+                <div *ngIf="regPass.invalid && regPass.touched" class="text-danger small">
+                  <div *ngIf="regPass.errors?.['required']">Password is required.</div>
+                  <div *ngIf="regPass.errors?.['minlength']">At least 6 characters required.</div>
+                </div>
+              </div>
+
+              <div class="mb-2">
+                <label>Role</label>
+                <select class="form-select" name="role" ngModel required #roleRef="ngModel">
+                  <option value="" disabled selected>Select role</option>
+                  <option value="Guest">Guest</option>
+                </select>
+                <div *ngIf="roleRef.invalid && roleRef.touched" class="text-danger small">Role is required.</div>
+              </div>
+
+              <div class="mb-2">
+                <label>Gender</label>
+                <select class="form-select" name="gender" ngModel required #genderRef="ngModel">
+                  <option value="" disabled selected>Select gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+                <div *ngIf="genderRef.invalid && genderRef.touched" class="text-danger small">Gender is required.</div>
+              </div>
+
+              <div class="mb-2">
+                <label>Contact Number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="contactNumber"
+                  ngModel
+                  required
+                  pattern="^[0-9]{10}$"
+                  #contactRef="ngModel"
+                />
+                <div *ngIf="contactRef.invalid && contactRef.touched" class="text-danger small">
+                  <div *ngIf="contactRef.errors?.['required']">Contact is required.</div>
+                  <div *ngIf="contactRef.errors?.['pattern']">Enter a valid 10-digit number.</div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label>Address</label>
+                <textarea
+                  class="form-control"
+                  name="address"
+                  rows="2"
+                  ngModel
+                  required
+                  #addrRef="ngModel"
+                ></textarea>
+                <div *ngIf="addrRef.invalid && addrRef.touched" class="text-danger small">Address is required.</div>
+              </div>
+
+              <button type="submit" class="btn btn-info w-100" [disabled]="registerForm.invalid">Register</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<br>
+<br>
+<br>
+<br>
+
+<!-- Footer -->
+<!-- footer in app com -->

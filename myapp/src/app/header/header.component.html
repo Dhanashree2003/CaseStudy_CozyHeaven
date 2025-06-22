@@ -1,0 +1,41 @@
+<nav class="navbar">
+  <div class="logo-title">
+    <img src="assets/logo.png" alt="Logo" class="logo" />
+    <span class="title">CozyHeaven Hotel Booking</span>
+  </div>
+
+  <div class="actions">
+    <button (click)="goBack()">Back</button>
+    <button (click)="toggleProfilePanel()">Profile</button>
+    <button (click)="logout()">Logout</button>
+  </div>
+</nav>
+
+<!-- Profile Slide Panel -->
+<div class="profile-panel" [class.open]="showProfilePanel">
+  <h3>User Profile</h3>
+
+  <form (ngSubmit)="updateProfile()">
+    <label>Full Name</label>
+    <input [(ngModel)]="user.fullName" name="fullName" [readonly]="!editMode" />
+
+    <label>Email</label>
+    <input [(ngModel)]="user.email" name="email" [readonly]="!editMode" />
+
+    <label>Gender</label>
+    <select [(ngModel)]="user.gender" name="gender" [disabled]="!editMode">
+      <option>Male</option>
+      <option>Female</option>
+    </select>
+
+    <label>Contact Number</label>
+    <input [(ngModel)]="user.contactNumber" name="contactNumber" [readonly]="!editMode" />
+
+    <label>Address</label>
+    <input [(ngModel)]="user.address" name="address" [readonly]="!editMode" />
+
+    <button *ngIf="!editMode" type="button" (click)="editMode = true">Edit</button>
+    <button *ngIf="editMode" type="submit">Update</button>
+    <button type="button" (click)="toggleProfilePanel()">Close</button>
+  </form>
+</div>

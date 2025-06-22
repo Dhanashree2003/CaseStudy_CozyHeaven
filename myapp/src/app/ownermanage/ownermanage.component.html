@@ -1,0 +1,31 @@
+<div class="container mt-4">
+  <h2>Manage Owners</h2>
+
+  <div class="input-group mb-3">
+    <input [(ngModel)]="searchOwnerId" type="number" class="form-control" placeholder="Search Owner by ID">
+    <button class="btn btn-primary" (click)="getOwnerById()">Search</button>
+  </div>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Contact Number</th>
+        <th>Address</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let owner of owners">
+        <td>{{ owner.fullName }}</td>
+        <td>{{ owner.email }}</td>
+        <td>{{ owner.contactNumber }}</td>
+        <td>{{ owner.address }}</td>
+        <td>
+          <button class="btn btn-danger btn-sm" (click)="deleteOwner(owner.userID)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
