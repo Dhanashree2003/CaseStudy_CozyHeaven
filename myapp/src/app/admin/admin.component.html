@@ -32,9 +32,9 @@
     <tbody>
       <tr *ngFor="let hotel of hotels">
         <td>{{ hotel?.hotelName }}</td>
-<td>{{ hotel?.location }}</td>
-<td>{{ hotel?.amenities }}</td>
-<td>{{ hotel?.ownerID }}</td>
+        <td>{{ hotel?.location }}</td>
+        <td>{{ hotel?.amenities }}</td>
+        <td>{{ hotel?.ownerID }}</td>
         <td>
           <button class="btn btn-danger btn-sm" (click)="deleteHotel(hotel.hotelID)">Delete</button>
           <button class="btn btn-warning btn-sm" (click)="openEditHotelForm(hotel)">Edit</button>
