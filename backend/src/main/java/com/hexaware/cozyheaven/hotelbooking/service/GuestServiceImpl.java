@@ -161,6 +161,7 @@ public class GuestServiceImpl implements IGuestService {
         RoomDTO dto = new RoomDTO();
         dto.setRoomID(room.getRoomID());
         dto.setHotelID(room.getHotel().getHotelID());
+        dto.setRoomName(room.getRoomName());
         dto.setRoomSize(room.getRoomSize());
         dto.setBedType(room.getBedType());
         dto.setMaxOccupancy(room.getMaxOccupancy());
