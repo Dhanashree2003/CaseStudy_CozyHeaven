@@ -19,7 +19,7 @@ export class RoombookingComponent implements OnInit {
 minOccupancy: number | null = null;
   maxPrice: number | null = null;
   roomSize: string = '';
-
+  roomName: string = '';
   checkInDate: string = '';
   checkOutDate: string = '';
   location: string = '';
@@ -62,9 +62,10 @@ ngOnInit(): void {
     this.errorMsg = '';
 
     const payload: any = {
-      hotelId: this.hotelId,
+      hotelID: this.hotelId,
       minOccupancy: this.minOccupancy || null,
       maxPrice: this.maxPrice || null,
+      roomName: this.roomName || null,
       roomSize: this.roomSize?.trim() || null,
       checkInDate: this.checkInDate || null,
       checkOutDate: this.checkOutDate || null,

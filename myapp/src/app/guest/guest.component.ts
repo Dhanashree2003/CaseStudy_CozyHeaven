@@ -35,7 +35,6 @@ checkoutMinDate: string = this.today;
     const user = localStorage.getItem('username');
     this.username = user ?? 'Guest';
     this.updateCheckoutMinDate();
-    console.log("hi")
   }
 
 
